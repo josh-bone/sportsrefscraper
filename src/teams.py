@@ -35,6 +35,8 @@ def get_roster(team, season_end_year):
 
     return df
 
-# def get_(team, season_end_year):
-#     query_url = f'https://www.basketball-reference.com/teams/{team}/{season_end_year}.html'
-#     pass
+def get_schedule():
+    query_url = f'https://www.basketball-reference.com/leagues/NBA_{season}_games-{month.lower()}.html'
+    
+def get_standings():
+    query_url = f'https://www.basketball-reference.com/friv/standings.fcgi?month={date.month}&day={date.day}&year={date.year}
