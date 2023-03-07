@@ -6,6 +6,8 @@ from requests import Session as HttpSession
 from requests.adapters import HTTPAdapter, Retry
 from bs4 import BeautifulSoup
 
+from .config import TEAMNAME_TO_ID
+
 
 class HttpRequest:
     __session = None
@@ -69,3 +71,10 @@ def player_suffix(_name):
         
     if resp.status_code != 200:
         raise ValueError(f"{resp.status_code}")
+    
+    
+def teamname_to_id(fullname):
+    assert type(fullname) == str, f'Improper teamname format: {type(fullname)}'
+    fullname = fullname.upper().replace('-', ' ')
+    abbrev = TEAMNAME_TO_ID[fullname]
+    return(abbrev)

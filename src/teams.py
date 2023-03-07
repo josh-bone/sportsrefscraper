@@ -1,9 +1,12 @@
 from .utils import HttpRequest
 import pandas as pd
 from bs4 import BeautifulSoup
+from utils import teamname_to_id
 
 def get_roster(team, season_end_year):
-    assert len(team) == 3 and type(team) == str, "Improper formatting!"
+    
+    if len(team) > 3 : team = teamname_to_id(team)
+    
     query_url = f'https://www.basketball-reference.com/teams/{team.upper()}/{season_end_year}.html'
     resp = HttpRequest.get(query_url)
     
