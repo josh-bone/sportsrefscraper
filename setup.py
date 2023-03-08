@@ -1,3 +1,4 @@
+# https://packaging.python.org/en/latest/guides/using-testpypi/
 from setuptools import setup
 import codecs
 import os.path

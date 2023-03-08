@@ -3,6 +3,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import datetime as dt
 
+
 def nba_schedule(season_end_year=None):
     """Scrapes basketball-reference.com for the requested year's schedule
 
