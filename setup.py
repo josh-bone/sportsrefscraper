@@ -31,8 +31,10 @@ setup(
     author='Joshua Bone',
     author_email='jbone@bu.edu',
     license_files = ('LICENSE',),
-    # packages=['pyexample'],
-    # install_requires=[],
+    packages=['sportsrefscraper'],
+    install_requires=['pandas', 
+                      'numpy',
+                      'matplotlib'],  # pickle?
 
     classifiers=[
         'Development Status :: 1 - Planning',
