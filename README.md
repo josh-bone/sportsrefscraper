@@ -59,3 +59,8 @@ The 'teams' submodule has functionality for scraping the roster of a team.
 ## Collaboration
 
 Collaborators are welcome - feel free to submit issues and pull requests at will.
+
+Our contributors:
+<a href="https://github.com/josh-bone/sportsrefscraper/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=josh-bone/sportsrefscraper" />
+</a>
