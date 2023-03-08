@@ -19,6 +19,7 @@ pip install -i https://test.pypi.org/simple/ sportsrefscraper==0.1.2
 
 Because this isn't _yet_ published on pip as of March 8 2023. This is why we have to use the TestPyPI installation above.
 
+### Warning: TestPyPI packages are only hosted temporarily, so if this install doesn't work, just open an issue. I'll publish it on PyPI as soon as someone else starts using this, but until then, I don't want to clog the pipeline.
 
 ## Example Usage
 
