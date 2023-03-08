@@ -3,19 +3,32 @@ from bs4 import BeautifulSoup
 from .utils import HttpRequest, player_suffix
 import datetime as dt
 
-def scrape_game_logs(playername, year=None, _type='per_game'):
+def scrape_game_logs(playername, year=None, _type='per_game', advanced = False):
+    basic = get_game_logs(playername, year=year, _type=_type, advanced=False)
+    adv = get_game_logs(playername, year=year, _type=_type, advanced=True)
+    
+    return(pd.concat([basic, adv], axis=1))
+
+def get_game_logs(playername, year=None, _type='per_game', advanced = False):
     if year is None:
         year = dt.datetime.now().year
-    suffix = player_suffix(playername).strip('.html') + f'/gamelog/{year}'
+        
+    if not advanced:  # Basic stats
+        suffix = player_suffix(playername).strip('.html') + f'/gamelog/{year}'
+    else:
+        suffix = player_suffix(playername).strip('.html') + f'/gamelog-advanced/{year}'
     
     query_url = f'https://www.basketball-reference.com{suffix}'  # e.g. https://www.basketball-reference.com/players/i/irvinky01/gamelog/2023
-    id = 'pgl_basic'
+    
+    if _type == 'per_game':
+        id = 'pgl_advanced' if advanced else 'pgl_basic'
+    else: raise ValueError(f"Requested an unexpected value for _type of game log: {_type}")
     
     resp = HttpRequest().get(query_url)
     if resp.status_code==200:
         soup = BeautifulSoup(resp.content, 'html.parser')
         
-        att = {'id': 'pgl_basic'}
+        att = {'id': id}
         table = soup.find('table', attrs=att)
         if table:
             df = pd.read_html(str(table))[0]
