@@ -1,5 +1,5 @@
 import pandas as pd
-import unicodedata, unidecode  # TODO: may need this
+import unidecode  # TODO: may need this
 
 from sys import stderr
 from requests import Session as HttpSession

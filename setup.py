@@ -32,9 +32,14 @@ setup(
     author_email='jbone@bu.edu',
     license_files = ('LICENSE',),
     packages=['sportsrefscraper'],
+    
+    # TODO: remove the unidecode dependency
     install_requires=['pandas', 
                       'numpy',
-                      'matplotlib'],  # pickle?
+                      'matplotlib',
+                      'unidecode',
+                      'bs4',
+                      'requests'],  # pickle?
 
     classifiers=[
         'Development Status :: 1 - Planning',
