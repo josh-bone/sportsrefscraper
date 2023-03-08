@@ -5,8 +5,35 @@ import datetime as dt
 import re
 
 
+def scrape_boxscores(date, away, home):
+    suffix = get_game_suffix(date, away, home)
+    query_url = f"https://www.basketball-reference.com{suffix}"
+    sesh = HttpRequest()
+    resp = sesh.get(query_url)
+    
+    basic_stats = {}
+    if resp.status_code==200:
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        
+        # four_factors = soup.find('table', attrs={'id': f'four_factors'})
+        # ff_df = pd.read_html(str(four_factors))[0]
+        
+        away_table = soup.find('table', attrs={'id': f'box-{away}-game-basic'})
+        away_basic = pd.read_html(str(away_table))[0]
+        home_table = soup.find('table', attrs={'id': f'box-{home}-game-basic'})
+        home_basic = pd.read_html(str(home_table))[0]
+        
+        basic_stats[away] = away_basic
+        basic_stats[home] = home_basic
+        # basic_stats['four_factors'] = ff_df
+    else:
+        raise ValueError(f"Response failed with code {resp.status_code}")
+    
+    return basic_stats
+
+
 def scrape_shot_chart(date, away, home):
-    """TODO: NOT TESTED YET
+    """Scrapes basketball-reference.com for shot charts
 
     Args:
         date (datetime object): _description_
@@ -19,7 +46,7 @@ def scrape_shot_chart(date, away, home):
     Returns:
         _type_: dictionary indexed by the team
     """    
-    suffix = get_game_suffix(date, away, home).replace('/boxscores', '')
+    suffix = get_game_suffix(date, away, home).replace('/boxscores', '')  # e.g. 202303040MIL
     sesh = HttpRequest()
     query_url = f'https://www.basketball-reference.com/boxscores/shot-chart{suffix}'
     resp = sesh.get(query_url)
@@ -57,7 +84,19 @@ def scrape_shot_chart(date, away, home):
         raise ValueError(f"Request failed with status code {resp.status_code}")
     
 def scrape_play_by_play(date, team1, team2):
-    
+    """Scrapes basketball-reference.com for the play-by-play
+
+    Args:
+        date (datetime object): date of game
+        team1 (str): 3-letter teamname abbreviation (uppercase)
+        team2 (str): 3-letter teamname abbreviation of the other team (uppercase)
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """    
     suffix = get_game_suffix(date, team1, team2)
     assert suffix is not None
     suffix = suffix.replace('/boxscores', '')
