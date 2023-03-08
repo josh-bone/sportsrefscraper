@@ -1,5 +1,5 @@
 # sports_reference_scraper
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/pypi/v/sports_reference_scraper)
 
 ## Background
 
