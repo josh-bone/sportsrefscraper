@@ -37,7 +37,7 @@ def scrape_shot_chart(date, away, home):
             description = get_description(div.attrs['tip'])
             shot_d = {**location, **description}
             shot_df = pd.DataFrame.from_dict([shot_d])
-            df1 = df1.append(shot_df)
+            df1 = pd.concat([df1, shot_df])
         df1 = df1.reset_index()
         df1 = df1.drop('index', axis=1)
         df2 = pd.DataFrame()
@@ -48,13 +48,62 @@ def scrape_shot_chart(date, away, home):
             description = get_description(div.attrs['tip'])
             shot_d = {**location, **description}
             shot_df = pd.DataFrame.from_dict([shot_d])
-            df2 = df2.append(shot_df)
+            df2 = pd.concat([df2, shot_df])
         df2 = df2.reset_index()
         df2 = df2.drop('index', axis=1)
 
         return {f'{away}': df1, f'{home}': df2}
     else:
         raise ValueError(f"Request failed with status code {resp.status_code}")
+    
+def scrape_play_by_play(date, team1, team2):
+    
+    suffix = get_game_suffix(date, team1, team2)
+    assert suffix is not None
+    suffix = suffix.replace('/boxscores', '')
+    
+    # selector = f'#pbp'
+    resp = HttpRequest().get(f'https://www.basketball-reference.com/boxscores/pbp{suffix}')
+    if resp.status_code==200:
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'pbp'})
+        df = pd.read_html(str(table))[0]
+    else:
+        raise ValueError(f"Response failed with code {resp.status_code}")
+    
+    df = format_pbp(df)
+    return df
+
+def format_pbp(pbp_df):
+    pbp_df.columns = list(map(lambda x: x[1], list(pbp_df.columns)))
+    t1 = list(pbp_df.columns)[1].upper()
+    t2 = list(pbp_df.columns)[5].upper()
+    q = 1
+    df = None
+    for index, row in pbp_df.iterrows():
+        d = {'QUARTER': float('nan'), 'TIME_REMAINING': float('nan'), f'{t1}_ACTION': float('nan'), f'{t2}_ACTION': float('nan'), f'{t1}_SCORE': float('nan'), f'{t2}_SCORE': float('nan')}
+        if row['Time']=='2nd Q':
+            q = 2
+        elif row['Time']=='3rd Q':
+            q = 3
+        elif row['Time']=='4th Q':
+            q = 4
+        elif 'OT' in row['Time']:
+            q = row['Time'][0]+'OT'
+        try:
+            d['QUARTER'] = q
+            d['TIME_REMAINING'] = row['Time']
+            scores = row['Score'].split('-')
+            d[f'{t1}_SCORE'] = int(scores[0])
+            d[f'{t2}_SCORE'] = int(scores[1])
+            d[f'{t1}_ACTION'] = row[list(pbp_df.columns)[1]]
+            d[f'{t2}_ACTION'] = row[list(pbp_df.columns)[5]]
+            if df is None:
+                df = pd.DataFrame(columns = list(d.keys()))
+            df = pd.concat([df, d], ignore_index=True)
+        except:
+            continue
+    return df
     
 def get_location(s):
     ## https://github.com/josh-bone/basketball_reference_scraper/blob/master/src/shot_charts.py#L11

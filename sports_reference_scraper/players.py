@@ -11,7 +11,7 @@ from .utils import HttpRequest, player_suffix
 #     # query_url = f'https://widgets.sports-reference.com/wg.fcgi?css=1&site=bbr&url={suffix}&div=div_{_type}'
 #     # # TODO: find a new place to scrape game logs 
     
-#     resp = HttpRequest.get(query_url)
+#     resp = HttpRequest().get(query_url)
 #     if resp.status_code==200:
 #         soup = BeautifulSoup(resp.content, 'html.parser')
         

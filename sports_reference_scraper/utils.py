@@ -94,16 +94,26 @@ def get_game_suffix(date, team1, team2):
     Returns:
         _type_: _description_
     """    
+    print(f"Searching for {team1} or {team2}")
+    
     _url = f'https://www.basketball-reference.com/boxscores/index.fcgi?year={date.year}&month={date.month}&day={date.day}'
     print(f"Querying {_url}")
-    r = HttpRequest().get(_url)
+    resp = HttpRequest().get(_url)
+    
     suffix = None
-    if r.status_code==200:
-        soup = BeautifulSoup(r.content, 'html.parser')
-        for table in soup.find_all('table', attrs={'class': 'teams'}):
-            for anchor in table.find_all('a'):
+    
+    if resp.status_code==200:
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        tables = soup.find_all('table', attrs={'class': 'teams'})
+        # print(f"Found {len(tables)} tables")
+        for i,table in enumerate(tables):
+            a_list = table.find_all('a')
+            # print(f"\nTable {i} has {len(a_list)} a's")
+            for anchor in a_list:
+                # print(f"anchor.attrs['href'] is {anchor.attrs['href']}")
                 if 'boxscores' in anchor.attrs['href']:
                     if team1 in anchor.attrs['href'] or team2 in anchor.attrs['href']:
                         suffix = anchor.attrs['href']
-    else: raise ValueError(r.status_code)
+    else: 
+        raise ValueError(resp.status_code)
     return suffix
