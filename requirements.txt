@@ -1,0 +1,36 @@
+attrs==22.2.0
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1675252249248/work
+brotlipy @ file:///Users/runner/miniforge3/conda-bld/brotlipy_1666764877873/work
+certifi==2022.12.7
+cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1671179612308/work
+charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1661170624537/work
+contourpy @ file:///Users/runner/miniforge3/conda-bld/contourpy_1673633760739/work
+cryptography @ file:///Users/runner/miniforge3/conda-bld/cryptography-split_1677821344449/work
+cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
+DateTime==5.0
+fonttools @ file:///Users/runner/miniforge3/conda-bld/fonttools_1678130017525/work
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1663625384323/work
+iniconfig==2.0.0
+kiwisolver @ file:///Users/runner/miniforge3/conda-bld/kiwisolver_1666805734106/work
+lxml==4.9.2
+matplotlib @ file:///Users/runner/miniforge3/conda-bld/matplotlib-suite_1678135689910/work
+munkres==1.1.4
+numpy @ file:///Users/runner/miniforge3/conda-bld/numpy_1675642654104/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1673482170163/work
+pandas==1.5.3
+Pillow @ file:///Users/runner/miniforge3/conda-bld/pillow_1678273503210/work
+pluggy==1.0.0
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1672659226110/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1661604839144/work
+pytest==7.2.2
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1673864280276/work
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1673863902341/work
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1658207591808/work
+tornado @ file:///Users/runner/miniforge3/conda-bld/tornado_1666788897868/work
+Unidecode @ file:///home/conda/feedstock_root/build_artifacts/unidecode_1664588179651/work
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1673452138552/work
+zope.interface==5.5.2
