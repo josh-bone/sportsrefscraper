@@ -36,4 +36,6 @@ date = dt.date(2023, 3, 4)
 shots = scrape_shot_chart(date, away, home)
 ```
 
+## Collaboration
 
+Collaborators are welcome - feel free to submit issues and pull requests at will.
