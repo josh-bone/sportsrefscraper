@@ -24,10 +24,10 @@ def get_version(rel_path):
         raise RuntimeError("Unable to find version string.")
 
 setup(
-    name='sports_reference_scraper',
-    version=get_version("sports_reference_scraper/__init__.py"),   
+    name='sportsrefscraper',
+    version=get_version("sportsrefscraper/__init__.py"),   
     description='A Python package to scrape sports-reference.com for sports statistics',
-    url='https://github.com/josh-bone/sports_reference_scraper',
+    url='https://github.com/josh-bone/sportsrefscraper',
     author='Joshua Bone',
     author_email='jbone@bu.edu',
     license_files = ('LICENSE',),
