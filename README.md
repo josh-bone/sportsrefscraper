@@ -36,6 +36,26 @@ date = dt.date(2023, 3, 4)
 shots = scrape_shot_chart(date, away, home)
 ```
 
+
+
+## Features
+
+<ins>Leagues</ins>:
+- [x] NBA
+- [ ] MLB
+- [ ] NFL
+
+The 'games' submodule has functionality for scraping the following:
+- Box Scores
+- Shot Charts
+- Play-by-play Game Descriptions 
+
+The 'leagues' submodule has functionality for scraping the following:
+- Schedule
+- Standings 
+
+The 'teams' submodule has functionality for scraping the roster of a team.
+
 ## Collaboration
 
 Collaborators are welcome - feel free to submit issues and pull requests at will.
