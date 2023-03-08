@@ -40,7 +40,6 @@ setup(
                       'unidecode',
                       'bs4',
                       'requests',
-                      'datetime',
                       'lxml'], 
 
     classifiers=[
