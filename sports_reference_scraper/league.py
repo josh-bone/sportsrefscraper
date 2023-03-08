@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import datetime as dt
 
 
-def nba_schedule(season_end_year=None):
+def nba_schedule(year=None):
     """Scrapes basketball-reference.com for the requested year's schedule
 
     Args:
@@ -15,23 +15,24 @@ def nba_schedule(season_end_year=None):
     """    
     
     # TODO: check that this sets the correct year... I think the season ends in July
-    if season_end_year is None:
+    if year is None:
         now = dt.now()
-        season_end_year = now.year if now.month < 7 else now.year+1
+        year = now.year
     
-    if type(season_end_year) == str:
-        season_end_year = int(season_end_year)
-    months = ['October', 'November', 'December', 'January', 'February', 'March',
-            'April', 'May', 'June']
-    if season_end_year == 2020:
+    if type(year) == str:
+        year = int(year)
+    months = ['January', 'February', 'March',
+            'April', 'May', 'June', 'October', 'November', 'December']
+    if year == 2019:
         # League took a break due to the COVID-19 pandemic
-        months = ['October-2019', 'November', 'December', 'January', 'February', 'March',
-                'July', 'August', 'September', 'October-2020']
+        months[-3] = 'October-2019'
+    elif year == 2020:
+        months[-3] = 'October-2020'
         
     season_df = pd.Dataframe()
     sesh = HttpRequest()
     for month in months:
-        query_url = f'https://www.basketball-reference.com/leagues/NBA_{season_end_year}_games-{month.lower()}.html'
+        query_url = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month.lower()}.html'
         resp = sesh.get(query_url)
         assert resp is not None, "HTTPS returned None"
         if resp.status_code==200:

@@ -7,7 +7,8 @@ import os.path
 The below two functions were taken dirctly from 
     https://packaging.python.org/en/latest/guides/single-sourcing-package-version/
     
-They make it so the package version is *only* specified in __init__.py
+They make it so the package version can be *only* specified in __init__.py
+    Without them, we'd have to track it in both this file and that one.
 """
 def read(rel_path):
     current_dir = os.path.abspath(os.path.dirname(__file__))
