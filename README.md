@@ -1,6 +1,8 @@
 # sportsrefscraper
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 ![Version](https://img.shields.io/pypi/v/sportsrefscraper)
+![Tests](https://github.com/josh-bone/sportsrefscraper/actions/workflows/unit-tests.yml/badge.svg)
+
 
 ## Background
 
