@@ -7,7 +7,7 @@ def scrape_game_logs(playername, year=None, _type='per_game', advanced = False):
     basic = get_game_logs(playername, year=year, _type=_type, advanced=False)
     adv = get_game_logs(playername, year=year, _type=_type, advanced=True)
     
-    return(pd.concat([basic, adv], axis=1))
+    return(basic.merge(adv, how='outer'))
 
 def get_game_logs(playername, year=None, _type='per_game', advanced = False):
     if year is None:
