@@ -23,7 +23,7 @@ def get_version(rel_path):
 
 setup(
     name='sports_reference_scraper',
-    version=get_version("src/__init__.py"),   
+    version=get_version("sports_reference_scraper/__init__.py"),   
     description='A Python package to scrape sports-reference.com for sports statistics',
     url='https://github.com/josh-bone/sports_reference_scraper',
     author='Joshua Bone',
