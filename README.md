@@ -1,5 +1,5 @@
-# sports_reference_scraper
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/pypi/v/sports_reference_scraper)
+# sportsrefscraper
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) ![Version](https://img.shields.io/pypi/v/sportsrefscraper)
 
 ## Background
 
@@ -14,14 +14,11 @@ I'm creating this repository _mostly_ to familiarize myself with PyPI packaging 
 Assuming you already have [pip](https://pip.pypa.io/en/stable/installation/) installed, run the following from the terminal:
 
 ```
-pip install sports_reference_scraper
+pip install -i https://test.pypi.org/simple/ sportsrefscraper==0.1.0
 ```
 
-### Warning! This isn't _yet_ published on pip as of March 8 2023. See the TestPyPI installation below for a temporary testpypi development build. 
+Because this isn't _yet_ published on pip as of March 8 2023. This is why we have to use the TestPyPI installation above.
 
-### Last working TestPyPI installation:
-
-```pip install -i https://test.pypi.org/simple/ sports-reference-scraper==0.1.5```
 
 ## Example Usage
 
@@ -29,7 +26,7 @@ In your python code, import the necessary class and scrape away!
 
 ```python
 import datetime as dt
-from sports_reference_scraper.games import scrape_shot_chart
+from sportsrefscraper.games import scrape_shot_chart
 
 # Get the shot chart for Philly 76ers vs. Milwaukee Bucks on March 4, 2023
 away = 'PHI'
