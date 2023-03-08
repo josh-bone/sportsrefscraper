@@ -33,13 +33,14 @@ setup(
     license_files = ('LICENSE',),
     packages=['sportsrefscraper'],
     
-    # TODO: remove the unidecode dependency
+    # https://packaging.python.org/en/latest/discussions/install-requires-vs-requirements/#requirements-files
     install_requires=['pandas', 
                       'numpy',
                       'matplotlib',
                       'unidecode',
                       'bs4',
-                      'requests'],  # pickle?
+                      'requests',
+                      'datetime'], 
 
     classifiers=[
         'Development Status :: 1 - Planning',
