@@ -5,7 +5,7 @@
 
 [sports-reference.com](https://www.sports-reference.com/) is an online repository containing statistics for many various sports. 
 
-This is _far_ from the first sports-reference scraper. However, on January 1, 2023, sports-reference.com retired their "widgets" feature, which formed the basis of many of existing scrapers. This repository does not use that functionality, so it is the most up-to-date scraper as of my knowledge (in March 2023).
+This is _far_ from the first sports-reference scraper. However, on January 1, 2023, sports-reference.com retired their "widgets" feature, which formed the basis of many of existing scrapers. When these broke, I decided to make my own scraper which doesn't use that functionality. This is the most up-to-date scraper as of my knowledge (in March 2023).
 
 I'm creating this repository _mostly_ to familiarize myself with PyPI packaging and best practices. Feel free to use it in your personal work, research, or passion projects!
 
