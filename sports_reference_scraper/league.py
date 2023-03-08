@@ -1,50 +1,55 @@
-from utils import HttpRequest
+from .utils import HttpRequest
 import pandas as pd
 from bs4 import BeautifulSoup
 import datetime as dt
 
 
-def nba_schedule(year=None):
+def nba_schedule(year=None, month=None):
     """Scrapes basketball-reference.com for the requested year's schedule
 
     Args:
-        season_end_year (str): the year that the requested season ended
+        year (int): the calendar year 
+        month (str): the month for which to scrape the schedule
 
     Raises:
         ValueError: If the HTTP request fails
     """    
     
-    # TODO: check that this sets the correct year... I think the season ends in July
-    if year is None:
+    try:
         now = dt.now()
+    except:
+        now = dt.datetime.now()
+        
+    if year is None:
         year = now.year
     
     if type(year) == str:
         year = int(year)
-    months = ['January', 'February', 'March',
-            'April', 'May', 'June', 'October', 'November', 'December']
-    if year == 2019:
-        # League took a break due to the COVID-19 pandemic
-        months[-3] = 'October-2019'
-    elif year == 2020:
-        months[-3] = 'October-2020'
         
-    season_df = pd.Dataframe()
+    valid_months = ['january', 'february', 'march',
+            'april', 'may', 'june', 'october', 'november', 'december']
+    assert month in valid_months, f"Improper month argument: {month}"
+    
+    if month == 'october':
+        if year == 2019:
+            # League took a break due to the COVID-19 pandemic
+            month = 'October-2019'
+        elif year == 2020:
+            month = 'October-2020'
+        
     sesh = HttpRequest()
-    for month in months:
-        query_url = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month.lower()}.html'
-        resp = sesh.get(query_url)
-        assert resp is not None, "HTTPS returned None"
-        if resp.status_code==200:
-            soup = BeautifulSoup(resp.content, 'html.parser')
-            table = soup.find('table', attrs={'id': 'schedule'})
-            if table:
-                month_df = pd.read_html(str(table))[0]
-                season_df = pd.concat([season_df, month_df],ignore_index=True,axis=0)
-        else:
-            raise ValueError(f"Request failed with status code {resp.status_code}")
+    query_url = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month}.html'
+    resp = sesh.get(query_url)
+    assert resp is not None, "HTTPS returned None"
+    if resp.status_code==200:
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        table = soup.find('table', attrs={'id': 'schedule'})
+        if table:
+            month_df = pd.read_html(str(table))[0]
+    else:
+        raise ValueError(f"Request failed with status code {resp.status_code}")
 
-    return(season_df)
+    return(month_df)
 
     
 def nba_standings(date=None):

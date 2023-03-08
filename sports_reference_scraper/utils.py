@@ -78,3 +78,32 @@ def teamname_to_id(fullname):
     fullname = fullname.upper().replace('-', ' ')
     abbrev = TEAMNAME_TO_ID[fullname]
     return(abbrev)
+
+def get_game_suffix(date, team1, team2):
+    """
+    (Taken from https://github.com/josh-bone/basketball_reference_scraper/blob/master/src/utils.py)
+
+    Args:
+        date (datetime object): _description_
+        team1 (_type_): _description_
+        team2 (_type_): _description_
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """    
+    _url = f'https://www.basketball-reference.com/boxscores/index.fcgi?year={date.year}&month={date.month}&day={date.day}'
+    print(f"Querying {_url}")
+    r = HttpRequest().get(_url)
+    suffix = None
+    if r.status_code==200:
+        soup = BeautifulSoup(r.content, 'html.parser')
+        for table in soup.find_all('table', attrs={'class': 'teams'}):
+            for anchor in table.find_all('a'):
+                if 'boxscores' in anchor.attrs['href']:
+                    if team1 in anchor.attrs['href'] or team2 in anchor.attrs['href']:
+                        suffix = anchor.attrs['href']
+    else: raise ValueError(r.status_code)
+    return suffix
