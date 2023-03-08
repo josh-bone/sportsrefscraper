@@ -8,7 +8,7 @@ def get_roster(team, season_end_year):
     if len(team) > 3 : team = teamname_to_id(team)
     
     query_url = f'https://www.basketball-reference.com/teams/{team.upper()}/{season_end_year}.html'
-    resp = HttpRequest.get(query_url)
+    resp = HttpRequest().get(query_url)
     
     ## https://github.com/josh-bone/basketball_reference_scraper/blob/master/src/teams.py
     df = None
@@ -34,9 +34,3 @@ def get_roster(team, season_end_year):
         raise ValueError(f"HTML request failed with status code {resp.status_code}")
 
     return df
-
-def get_schedule():
-    query_url = f'https://www.basketball-reference.com/leagues/NBA_{season}_games-{month.lower()}.html'
-    
-def get_standings():
-    query_url = f'https://www.basketball-reference.com/friv/standings.fcgi?month={date.month}&day={date.day}&year={date.year}

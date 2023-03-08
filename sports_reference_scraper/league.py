@@ -28,9 +28,11 @@ def nba_schedule(season_end_year=None):
                 'July', 'August', 'September', 'October-2020']
         
     season_df = pd.Dataframe()
+    sesh = HttpRequest()
     for month in months:
         query_url = f'https://www.basketball-reference.com/leagues/NBA_{season_end_year}_games-{month.lower()}.html'
-        resp = HttpRequest.get(query_url)
+        resp = sesh.get(query_url)
+        assert resp is not None, "HTTPS returned None"
         if resp.status_code==200:
             soup = BeautifulSoup(resp.content, 'html.parser')
             table = soup.find('table', attrs={'id': 'schedule'})
@@ -56,7 +58,7 @@ def nba_standings(date=None):
         date = dt.now()
     
     query_url = f'https://www.basketball-reference.com/friv/standings.fcgi?month={date.month}&day={date.day}&year={date.year}'
-    resp = HttpRequest.get(query_url)
+    resp = HttpRequest().get(query_url)
     
     standings = {}
     
