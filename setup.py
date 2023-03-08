@@ -40,7 +40,8 @@ setup(
                       'unidecode',
                       'bs4',
                       'requests',
-                      'datetime'], 
+                      'datetime',
+                      'lxml'], 
 
     classifiers=[
         'Development Status :: 1 - Planning',
