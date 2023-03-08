@@ -6,7 +6,7 @@
 
 ## Background
 
-[sports-reference.com](https://www.sports-reference.com/) is an online repository containing statistics for many various sports. 
+[sports-reference.com](https://www.sports-reference.com/) is an online repository containing statistics for several different sports. The aim of this repository is to maintain an updated web-scraper for this site.
 
 This is _far_ from the first sports-reference scraper. However, on January 1, 2023, [sports-reference.com](https://www.sports-reference.com/) retired their "widgets" feature, which formed the basis of many of existing scrapers. When these broke, I decided to make my own scraper which doesn't use that functionality. This is the most up-to-date scraper as of my knowledge (in March 2023).
 
