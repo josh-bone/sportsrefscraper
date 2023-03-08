@@ -17,7 +17,7 @@ I'm creating this repository _mostly_ to familiarize myself with PyPI packaging 
 Assuming you already have [pip](https://pip.pypa.io/en/stable/installation/) installed, run the following from the terminal:
 
 ```
-pip install -i https://test.pypi.org/simple/ sportsrefscraper==0.1.2
+python -m pip install -i https://test.pypi.org/simple/ sportsrefscraper==0.1.2
 ```
 
 Because this isn't _yet_ published on pip as of March 8 2023. This is why we have to use the TestPyPI installation above.
