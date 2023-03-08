@@ -27,6 +27,7 @@ In your python code, import the necessary class and scrape away!
 import datetime as dt
 from sports_reference_scraper.games import scrape_shot_chart
 
+# Get the shot chart for Philly 76ers vs. Milwaukee Bucks on March 4, 2023
 away = 'PHI'
 home = 'MIL'
 date = dt.date(2023, 3, 4)
