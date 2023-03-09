@@ -9,6 +9,29 @@ def scrape_game_logs(playername, year=None, _type='per_game', advanced = False):
     
     return(basic.merge(adv, how='outer'))
 
+def scrape_per100(playername):
+    
+    # id = 
+    suffix = player_suffix(playername) + f'#per_poss'
+    
+    # e.g. https://www.basketball-reference.com/players/i/irvinky01.html#all_sims
+    query_url = f'https://www.basketball-reference.com{suffix}'
+    
+    resp = HttpRequest().get(query_url)
+    if resp.status_code==200:
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        print(soup.prettify())
+        att = {'id': id}
+        
+        table = soup.find('table', attrs=att)
+        if table:
+            df = pd.read_html(str(table))[0]
+            return(df)
+        else:
+            raise ValueError(f"Did not find table")
+    else:
+        raise ValueError(f"Failed with status code {resp.status_code}")
+
 def get_game_logs(playername, year=None, _type='per_game', advanced = False):
     if year is None:
         year = dt.datetime.now().year

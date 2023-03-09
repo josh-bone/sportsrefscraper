@@ -54,10 +54,13 @@ def scrape_shot_chart(date, away, home):
     ## https://github.com/josh-bone/basketball_reference_scraper/blob/master/src/shot_charts.py
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.content, 'html.parser')
-        shot_chart1_div = soup.find('div', attrs={'id': f'shots-{away}'})
-        shot_chart2_div = soup.find('div', attrs={'id': f'shots-{home}'})
+        id_away = f'shots-{away}'
+        id_home = f'shots-{home}'
+        away_div = soup.find('div', attrs={'id': id_away})
+        home_div = soup.find('div', attrs={'id': id_home})
+        
         df1 = pd.DataFrame()
-        for div in shot_chart1_div.find_all('div'):
+        for div in away_div.find_all('div'):
             if 'style' not in div.attrs or 'tip' not in div.attrs:
                 continue
             location = get_location(div.attrs['style'])
@@ -67,8 +70,9 @@ def scrape_shot_chart(date, away, home):
             df1 = pd.concat([df1, shot_df])
         df1 = df1.reset_index()
         df1 = df1.drop('index', axis=1)
+        
         df2 = pd.DataFrame()
-        for div in shot_chart2_div.find_all('div'):
+        for div in home_div.find_all('div'):
             if 'style' not in div.attrs or 'tip' not in div.attrs:
                 continue
             location = get_location(div.attrs['style'])

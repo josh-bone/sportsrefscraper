@@ -9,7 +9,7 @@ def nba_schedule(year=None, month=None):
 
     Args:
         year (int): the calendar year 
-        month (str): the month for which to scrape the schedule
+        month (str): the month for which to scrape the schedule. If None, returns the schedule for all months.
 
     Raises:
         ValueError: If the HTTP request fails
@@ -28,6 +28,12 @@ def nba_schedule(year=None, month=None):
         
     valid_months = ['january', 'february', 'march',
             'april', 'may', 'june', 'october', 'november', 'december']
+    if month is None:
+        sched = pd.DataFrame()
+        for m in valid_months:
+            cur = nba_schedule(year=year, month=m)
+            sched = pd.concat([sched, cur], axis=0, ignore_index=True)
+        return(sched)
     assert month in valid_months, f"Improper month argument: {month}"
     
     if month == 'october':

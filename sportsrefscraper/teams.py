@@ -1,7 +1,7 @@
-from .utils import HttpRequest
+# from .utils import 
 import pandas as pd
 from bs4 import BeautifulSoup
-from utils import teamname_to_id
+from .utils import HttpRequest, teamname_to_id
 
 def get_roster(team, season_end_year):
     

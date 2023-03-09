@@ -67,3 +67,5 @@ TEAMNAME_TO_ID = {
 'WASHINGTON CAPITOLS' : 'WAS',
 'WATERLOO HAWKS': 'WAT',
 }
+
+PLAYERS = ['Jaylen Brown', 'Marcus Smart', 'Joel Embiid']
