@@ -68,3 +68,25 @@ Collaborators are welcome - feel free to submit issues and pull requests at will
 <a href="https://github.com/josh-bone/sportsrefscraper/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=josh-bone/sportsrefscraper" />
 </a>
+
+## More Details
+
+_Directory Structure:_
+```
+.
+├── LICENSE
+├── README.md
+├── requirements.txt
+├── setup.py
+├── test_scrape.py
+├── sportsrefscraper
+│   ├── __init__.py
+│   ├── config.py
+│   ├── games.py
+│   ├── league.py
+│   ├── players.py
+│   ├── teams.py
+|   ├── utils.py
+|   └── ...
+└── ...
+```
