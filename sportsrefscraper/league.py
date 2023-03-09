@@ -30,9 +30,11 @@ def nba_schedule(year=None, month=None):
             'april', 'may', 'june', 'october', 'november', 'december']
     if month is None:
         sched = pd.DataFrame()
-        for m in valid_months:
+        for ind, m in enumerate(valid_months):
             cur = nba_schedule(year=year, month=m)
             sched = pd.concat([sched, cur], axis=0, ignore_index=True)
+            if ind + 1 == now.month:
+                break
         return(sched)
     assert month in valid_months, f"Improper month argument: {month}"
     
