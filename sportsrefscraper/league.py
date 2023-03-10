@@ -4,6 +4,47 @@ from bs4 import BeautifulSoup
 import datetime as dt
 
 
+def scrape_team_vs_team(year=None, month=None):
+    """Scrape the record of each team against each other team - returned in a pandas DataFrame
+
+    Args:
+        year (int): the calendar year 
+        month (str): the month for which to scrape the schedule. If None, returns the schedule for all months.
+
+    Raises:
+        ValueError: If reading the data was unsuccessful
+    """    
+    try:
+        now = dt.now()
+    except:
+        now = dt.datetime.now()
+    
+    if year is None:
+        year = now.year
+    
+    if type(year) == str:
+        year = int(year)
+        
+    assert type(month) == str
+        
+    id = 'team_vs_team'
+    atts = {'id': id}
+    
+    sesh = HttpRequest()
+    query_url = f'https://www.basketball-reference.com/leagues/NBA_{year}_games-{month.lower()}.html'
+    resp = sesh.get(query_url)
+    
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.content, 'html.parser')
+        table = soup.find('table', attrs=atts)
+        if table:
+            df = pd.read_html(str(table))[0]
+            return(df)
+        else:
+            raise ValueError(f"Failed to find table at {query_url}")
+    else:
+        raise ValueError(f"Http Response at {query_url}\n\tfailed with status code {resp.status_code}")
+    
 def nba_schedule(year=None, month=None):
     """Scrapes basketball-reference.com for the requested year's schedule
 
@@ -73,11 +114,13 @@ def nba_standings(date=None):
         date = dt.now()
     
     query_url = f'https://www.basketball-reference.com/friv/standings.fcgi?month={date.month}&day={date.day}&year={date.year}'
-    resp = HttpRequest().get(query_url)
+    sesh = HttpRequest()
+    resp = sesh.get(query_url)
     
-    standings = {}
+    standings = None
     
     if resp.status_code==200:
+        standings = {}
         soup = BeautifulSoup(resp.content, 'html.parser')
         e_table = soup.find('table', attrs={'id': 'standings_e'})
         w_table = soup.find('table', attrs={'id': 'standings_w'})
@@ -92,3 +135,5 @@ def nba_standings(date=None):
         standings['West'] = w_df
     else:
         raise ValueError(f"Request failed with status code {resp.status_code}")
+    
+    return(standings)

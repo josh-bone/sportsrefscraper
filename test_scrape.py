@@ -1,4 +1,7 @@
-"""test_scrape.py
+"""
+test_scrape.py
+
+TODO: Remove the 'random' calls
 """
 
 import datetime as dt
@@ -6,6 +9,7 @@ import datetime as dt
 from sportsrefscraper.players import scrape_game_logs, scrape_per100
 from sportsrefscraper.games import scrape_boxscores, scrape_play_by_play, scrape_shot_chart
 from sportsrefscraper.teams import get_roster
+from sportsrefscraper.league import scrape_team_vs_team, nba_standings
 from sportsrefscraper.config import TEAMNAME_TO_ID, PLAYERS
 import random
 
@@ -41,3 +45,13 @@ class TestScrape:
     def test_per100(self):
         player = random.choice(PLAYERS)
         assert scrape_per100(player) is not None
+        
+    def test_team_vs_team(self):
+        year = 2021
+        month = 'March'
+        assert scrape_team_vs_team(year=year, month=month) is not None
+        
+    def test_standings(self):
+        dates = [dt.date(2023, 3, 4)]
+        for _date in dates:
+            assert nba_standings(date=_date) is not None

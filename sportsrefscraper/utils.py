@@ -18,9 +18,9 @@ class HttpRequest:
             return
         stderr.write("Initializing HTTPS Session\n")
         HttpRequest.__session = HttpSession()
-        retries = Retry(total=10,
+        retries = Retry(total=3,
                         backoff_factor=1,
-                        status_forcelist=[429],
+                        status_forcelist=[],  # 429
                         allowed_methods=False)
         HttpRequest.__session.mount("https://", HTTPAdapter(max_retries=retries))
 
@@ -51,7 +51,6 @@ def player_suffix(_name):
         if header:
             page_name = header.find('span').text
             if ((unidecode.unidecode(page_name)).lower() == _name):
-                # the URL we constructed matches the name of the player on this page
                 return suffix
             else:
                 # Try another one
@@ -62,8 +61,6 @@ def player_suffix(_name):
                 # if players have same first two letters of last name then just increment suffix
                 elif firstname[:2] == page_first_name.lower()[:2]:
                     player_number = int(''.join(c for c in suffix if c.isdigit())) + 1
-                    # if player_number < 10:
-                    #     player_number = f"0{str(player_number)}"
                     suffix = f"/players/{last_initial}/{lastname_code}{firstname_code}{player_number:02d}.html"
                 
                 resp = HttpRequest.get(f'https://www.basketball-reference.com{suffix}')
